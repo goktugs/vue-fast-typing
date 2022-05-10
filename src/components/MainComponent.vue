@@ -7,9 +7,10 @@ export default {
       isTrue: true,
       trueCount: 0,
       falseCount: 0,
-      timer: 60,
+      timer: 3,
       interval: false,
       isRunning: false,
+      isFinished: false,
     };
   },
 
@@ -40,10 +41,14 @@ export default {
   methods: {
     toggleTimer() {
       this.isRunning = true;
-      this.interval = setInterval(this.timeProcess, 1000);
+      this.interval = setInterval(this.timeProcess, 100);
     },
 
     timeProcess() {
+      if (this.timer === 0) {
+        clearInterval(this.interval);
+        this.isFinished = true;
+      }
       this.timer--;
     },
   },
@@ -68,19 +73,30 @@ export default {
         </div>
       </div>
 
+      <br />
+
       <div>
         Doğru Sayısı = {{ trueCount }}
         <br />
         Yanlış Sayısı = {{ falseCount }}
       </div>
 
-      <div class="card mt-5 bg-secondary">
-        <div class="card-body">
-          <div class="input-group mb-3 input-group-lg">
-            <input type="text" class="form-control" v-model="inputWord" />
-            <button class="btn btn-light btn-lg mx-2" disabled type="button">
-              {{ timer }}</button
-            ><button class="btn btn-light btn-lg" type="button">Yenile</button>
+      <br />
+
+      <div>
+        <div v-if="isFinished" class="alert alert-primary">
+          <h1>Oyun Bitti</h1>
+        </div>
+        <div v-else class="card mt-5 bg-secondary">
+          <div class="card-body">
+            <div class="input-group mb-3 input-group-lg">
+              <input type="text" class="form-control" v-model="inputWord" />
+              <button class="btn btn-light btn-lg mx-2" disabled type="button">
+                {{ timer }}</button
+              ><button class="btn btn-light btn-lg" type="button">
+                Yenile
+              </button>
+            </div>
           </div>
         </div>
       </div>
