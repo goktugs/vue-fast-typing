@@ -1,9 +1,16 @@
 <template>
-  <h1>hello</h1>
+  <main-component />
 </template>
 
 <script>
-export default {};
+import MainComponent from "@/components/MainComponent.vue";
+
+export default {
+  name: "App",
+  components: {
+    MainComponent,
+  },
+};
 </script>
 
 <style>
